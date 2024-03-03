@@ -1,5 +1,6 @@
 package com.example.giviproject.service.Impl;
 
+import com.example.giviproject.exception.UserNotFoundException;
 import com.example.giviproject.model.User;
 import com.example.giviproject.service.UserService;
 import org.springframework.stereotype.Service;
@@ -30,8 +31,9 @@ public class UserServiceImpl implements UserService {
 
         if(user.isEmpty())
         {
-            //we will later write custom exception for this
-            return null;
+            //search for another string format i remember it is done with better like using %s
+            //i dont like this concat logic!!!
+            throw new UserNotFoundException("User With Given ID: " + id + " Does not Exist!");
         }
 
         return user.get();
