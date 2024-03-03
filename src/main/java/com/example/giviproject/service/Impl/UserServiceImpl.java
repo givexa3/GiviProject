@@ -1,5 +1,6 @@
 package com.example.giviproject.service.Impl;
 
+import com.example.giviproject.dto.UserDTO;
 import com.example.giviproject.exception.UserNotFoundException;
 import com.example.giviproject.model.User;
 import com.example.giviproject.service.UserService;
@@ -23,7 +24,7 @@ public class UserServiceImpl implements UserService {
     //this method should be reimplemented with DB logic
     //for temporary testing we will use data structures
     @Override
-    public User getUserById(int id) {
+    public UserDTO getUserById(int id) {
         Optional<User> user = users
                 .stream()
                 .filter(u -> u.getId() == id)
@@ -36,7 +37,12 @@ public class UserServiceImpl implements UserService {
             throw new UserNotFoundException("User With Given ID: " + id + " Does not Exist!");
         }
 
-        return user.get();
+        //we need auto mapper here
+        return UserDTO
+                .builder()
+                .age(user.get().getAge())
+                .name(user.get().getName())
+                .build();
     }
 
 
