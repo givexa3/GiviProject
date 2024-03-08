@@ -3,32 +3,22 @@ package com.example.giviproject.service.Impl;
 import com.example.giviproject.dto.UserDTO;
 import com.example.giviproject.exception.UserNotFoundException;
 import com.example.giviproject.model.User;
+import com.example.giviproject.repository.UserRepository;
 import com.example.giviproject.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    private List<User> users = new ArrayList<>();
+    @Autowired
+    private UserRepository userRepository;
 
-    public UserServiceImpl()
-    {
-        generateUsers();
-    }
-
-    //this method should be reimplemented with DB logic
-    //for temporary testing we will use data structures
     @Override
-    public UserDTO getUserById(int id) {
-        Optional<User> user = users
-                .stream()
-                .filter(u -> u.getId() == id)
-                .findFirst();
+    public UserDTO getUserById(Long id) {
+        Optional<User> user = userRepository.findById(id);
 
         if(user.isEmpty())
         {
@@ -45,30 +35,14 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
 
-
-    private void generateUsers()
-    {
-        User u1 = User
+    @Override
+    public void createUser(UserDTO userDTO) {
+        User user = User
                 .builder()
-                .id(1)
-                .name("Givi")
-                .age(24)
+                .age(userDTO.getAge())
+                .name(userDTO.getName())
                 .build();
 
-        User u2 = User
-                .builder()
-                .id(2)
-                .name("Nika")
-                .age(22)
-                .build();
-
-        User u3 = User
-                .builder()
-                .id(3)
-                .name("Jango")
-                .age(21)
-                .build();
-
-        this.users.addAll(Arrays.asList(u1, u2, u3));
+        userRepository.save(user);
     }
 }
