@@ -1,7 +1,6 @@
 package com.example.giviproject.controller;
 
 import com.example.giviproject.dto.UserDTO;
-import com.example.giviproject.model.User;
 import com.example.giviproject.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
