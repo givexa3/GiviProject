@@ -1,5 +1,6 @@
 package com.example.giviproject.dto;
 
+import com.example.giviproject.model.Company;
 import lombok.Builder;
 import lombok.Data;
 
@@ -8,4 +9,5 @@ import lombok.Data;
 public class JobDTO {
     private String title;
     private int salary;
+    private Company company;
 }
