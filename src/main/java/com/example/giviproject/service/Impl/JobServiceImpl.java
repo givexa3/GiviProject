@@ -22,6 +22,7 @@ public class JobServiceImpl implements JobService {
                 .builder()
                 .title(jobDto.getTitle())
                 .salary(jobDto.getSalary())
+                .company(jobDto.getCompany())
                 .build();
 
         jobRepository.save(job);
@@ -41,6 +42,7 @@ public class JobServiceImpl implements JobService {
                 .builder()
                 .title(job.get().getTitle())
                 .salary(job.get().getSalary())
+                .company(job.get().getCompany())
                 .build();
     }
 }

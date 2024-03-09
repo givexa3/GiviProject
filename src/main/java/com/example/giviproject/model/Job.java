@@ -16,4 +16,7 @@ public class Job {
     private long id;
     private String title;
     private int salary;
+
+    @ManyToOne
+    private Company company;
 }
