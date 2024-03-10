@@ -1,7 +1,6 @@
 package com.example.giviproject.controller;
 
 import com.example.giviproject.dto.CompanyDTO;
-import com.example.giviproject.dto.JobDTO;
 import com.example.giviproject.service.CompanyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
