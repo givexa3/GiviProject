@@ -38,6 +38,7 @@ public class UserServiceImpl implements UserService {
                 .build();
 
         userRepository.save(user);
+        log.info("User With Given Name: {} Created Successfully", userDTO.getName());
     }
 
     @Override
@@ -48,12 +49,14 @@ public class UserServiceImpl implements UserService {
         user.setAge(userDTO.getAge());
 
         userRepository.save(user);
+        log.info("User With Given ID: {} Updated Successfully", userId);
     }
 
     @Override
     public void deleteUser(long userId) {
         User user = checkAndGetUserById(userId);
         userRepository.delete(user);
+        log.info("User With Given ID: {} Deleted Successfully", userId);
     }
 
 
