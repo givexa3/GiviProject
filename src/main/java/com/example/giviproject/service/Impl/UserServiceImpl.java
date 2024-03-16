@@ -5,12 +5,14 @@ import com.example.giviproject.exception.UserNotFoundException;
 import com.example.giviproject.model.User;
 import com.example.giviproject.repository.UserRepository;
 import com.example.giviproject.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -18,20 +20,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO getUserById(Long id) {
-        Optional<User> user = userRepository.findById(id);
-
-        if(user.isEmpty())
-        {
-            //search for another string format i remember it is done with better like using %s
-            //i dont like this concat logic!!!
-            throw new UserNotFoundException("User With Given ID: " + id + " Does not Exist!");
-        }
-
+        User user = checkAndGetUserById(id);
         //we need auto mapper here
         return UserDTO
                 .builder()
-                .age(user.get().getAge())
-                .name(user.get().getName())
+                .age(user.getAge())
+                .name(user.getName())
                 .build();
     }
 
@@ -44,5 +38,35 @@ public class UserServiceImpl implements UserService {
                 .build();
 
         userRepository.save(user);
+    }
+
+    @Override
+    public void updateUser(UserDTO userDTO, long userId) {
+        User user = checkAndGetUserById(userId);
+
+        user.setName(userDTO.getName());
+        user.setAge(userDTO.getAge());
+
+        userRepository.save(user);
+    }
+
+    @Override
+    public void deleteUser(long userId) {
+        User user = checkAndGetUserById(userId);
+        userRepository.delete(user);
+    }
+
+
+    private User checkAndGetUserById(long userId)
+    {
+        Optional<User> user = userRepository.findById(userId);
+
+        if(user.isEmpty())
+        {
+            log.error("User With Given ID: {} Does not Exist!", userId);
+            throw new UserNotFoundException(String.format("User With Given ID: %s Does not Exist!", userId));
+        }
+
+        return user.get();
     }
 }
