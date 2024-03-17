@@ -69,4 +69,25 @@ class UserServiceImplTest {
         // Verify that the UserRepository's findById method was called with the correct parameter
         verify(userRepository, times(1)).findById(userId);
     }
+
+
+    @Test
+    void testCreateUser()
+    {
+        // Arrange
+        UserDTO userDTO = UserDTO
+                .builder()
+                .name("John")
+                .age(30)
+                .build();
+
+        // Act
+        userService.createUser(userDTO);
+
+        // Assert
+        verify(userRepository, times(1)).save(any(User.class));
+    }
+
+
+    //lets write tests for check logging later
 }
