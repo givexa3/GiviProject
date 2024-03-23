@@ -26,10 +26,10 @@ public class UserController {
 
     //localhost:8080/user
     @PostMapping()
-    public ResponseEntity<HttpStatus> createUser(@RequestBody UserDTO userDTO)
+    public ResponseEntity<String> createUser(@RequestBody UserDTO userDTO)
     {
         userService.createUser(userDTO);
-        return ResponseEntity.ok(HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping()

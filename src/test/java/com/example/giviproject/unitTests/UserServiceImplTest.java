@@ -1,9 +1,10 @@
-package com.example.giviproject.service.Impl;
+package com.example.giviproject.unitTests;
 
 import com.example.giviproject.dto.UserDTO;
 import com.example.giviproject.exception.UserNotFoundException;
 import com.example.giviproject.model.User;
 import com.example.giviproject.repository.UserRepository;
+import com.example.giviproject.service.Impl.UserServiceImpl;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
