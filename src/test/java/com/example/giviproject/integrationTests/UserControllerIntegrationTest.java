@@ -23,13 +23,26 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 
+//@ExtendWith(SpringExtension.class) enables us to use spring features like @Autowired and etc
+//while @ExtendWith(MockitoExtension.class) us use Mock dependnecies like @Mock @InjectMocks and etc
 @ExtendWith(SpringExtension.class)
+
+//This annotation integrates our application as a hole to acts as a integration test
+//This annotation triggers the loading of the entire application context,
+// including all the beans, configurations, and components registered in your Spring Boot application.
 @SpringBootTest
+
+//@AutoConfigureMockMvc is used to automatically configure the MockMvc instance
 @AutoConfigureMockMvc
 class UserControllerIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 
+
+    //Use @Mock to create standalone mock objects in unit tests.
+    //Use @MockBean to create mock instances of Spring beans in integration tests.
+    //Use @InjectMocks to automatically inject mock dependencies into the class under
+    //test in conjunction with @Mock or @MockBean.
     @MockBean
     private UserService userService; // Mocking UserService
 
